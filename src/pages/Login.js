@@ -5,12 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
 
-
   const navigate = useNavigate()
   const id = React.useRef(null)
   const pwd = React.useRef(null)
-
-
 
   const handle = () => {
     // to server
