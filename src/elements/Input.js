@@ -1,16 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = (props) => {
-    const styles = {
-        label:props.label,
-        placeholder:props.placeholder
-    }
-    return(
-        <MyInput style={styles} onChange={props._onChange}>{props.children}</MyInput>
-    )
-}
-const MyInput = styled.input`
-`
+import {Text, Grid} from "./index";
 
-export default Input
+const Input = (props) => {
+    const {label, placeholder, _onChange, reff, type} = props;
+    return (
+      <React.Fragment>
+        <Grid>
+          <Text margin="0px">{label}</Text>
+          <ElInput type={type} ref={reff} placeholder={placeholder} onChange={_onChange} />
+        </Grid>
+      </React.Fragment>
+    );
+}
+
+Input.defaultProps = {
+    type: "text",
+    label: '텍스트',
+    placeholder: '텍스트를 입력해주세요.',
+    _onChange: () => {}
+}
+
+const ElInput = styled.input`
+    border: 1px solid #212121;
+    width: 100%;
+    padding: 12px 4px;
+    box-sizing: border-box;
+`;
+
+export default Input;

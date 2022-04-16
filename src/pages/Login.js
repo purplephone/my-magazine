@@ -1,8 +1,17 @@
 import React from "react";
-import { Text, Input, Grid, Btn} from "../elements";
+import { Text, Input, Grid, Button } from "../elements";
+import {setCookie} from "../shared/Cookie"
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
+  const navigate=useNavigate()
+  const id = React.useRef(null)
+  const pwd = React.useRef(null)
+  const handle = () => {
+    // to server
+    setCookie("user_id",id.current.value)
+    navigate('/')
+  }
   return (
     <React.Fragment>
       <Grid padding="16px">
@@ -14,9 +23,7 @@ const Login = (props) => {
           <Input
             label="아이디"
             placeholder="아이디를 입력해주세요."
-            _onChange={() => {
-              console.log("아이디 입력했어!");
-            }}
+            reff={id}
           />
         </Grid>
 
@@ -24,19 +31,14 @@ const Login = (props) => {
           <Input
             label="패스워드"
             placeholder="패스워드 입력해주세요."
-            _onChange={() => {
-              console.log("패스워드 입력했어!");
-            }}
+            reff={pwd}
           />
         </Grid>
 
-        <Btn
-          border="red"
-          color="red"
-          _onClick={() => {
-            console.log("로그인 했어!");
-          }}
-        >Sign-In</Btn>
+        <Button
+          text="로그인하기"
+          _onClick={handle}
+        ></Button>
       </Grid>
     </React.Fragment>
   );
