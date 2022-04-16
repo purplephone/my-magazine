@@ -1,17 +1,19 @@
 import React from "react";
 import { Text, Input, Grid, Button } from "../elements";
-import {setCookie} from "../shared/Cookie"
+import { setCookie } from "../shared/Cookie"
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const id = React.useRef(null)
   const pwd = React.useRef(null)
   const handle = () => {
     // to server
-    setCookie("user_id",id.current.value)
+    setCookie("user_id", id.current.value)
     navigate('/')
   }
+
+  console.log("한지훈 존잘");
   return (
     <React.Fragment>
       <Grid padding="16px">
