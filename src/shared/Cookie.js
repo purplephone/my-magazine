@@ -14,6 +14,7 @@ const setCookie = (name, value, exp=3) => {
 }
 
 const deleteCookie = (name) => {
+    console.log("지우기")
     let date = new Date("2020-01-01").toUTCString()
     document.cookie = name+"=;expires="+date
 }
