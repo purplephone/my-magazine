@@ -24,9 +24,9 @@ const Image = ({ shape, src, size }) => {
 };
 
 Image.defaultProps = {
-    shape:"circle",
-    src:"https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjlfMTg0/MDAxNjE3MDIxODU4MzIx.jRX9zgbSwS7rFSZlnvThnvAn0DUwsy_CYvZJtRQV57kg.QXB3bRcMm-NsjUOAoW2NwiuxnC_ihrSYjctjaD_w4Wog.JPEG.nohns76/SE-c0d1e18b-8f96-4b54-aab4-2bd8fb81e067.jpg?type=w800",
-    size: 36,
+  shape: "circle",
+  src: "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMjlfMTg0/MDAxNjE3MDIxODU4MzIx.jRX9zgbSwS7rFSZlnvThnvAn0DUwsy_CYvZJtRQV57kg.QXB3bRcMm-NsjUOAoW2NwiuxnC_ihrSYjctjaD_w4Wog.JPEG.nohns76/SE-c0d1e18b-8f96-4b54-aab4-2bd8fb81e067.jpg?type=w800",
+  size: 36,
 }
 
 const AspectOutter = styled.div`
