@@ -1,16 +1,20 @@
 import React from "react";
 import { Text, Input, Grid, Button } from "../elements";
 import {setCookie} from "../shared/Cookie"
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Login = (props) => {
-  const navigate=useNavigate()
-  const id = React.useRef(null)
+  const email = React.useRef(null)
   const pwd = React.useRef(null)
-  const handle = () => {
-    // to server
-    setCookie("user_id",id.current.value)
-    navigate('/')
+  const dispatch = useDispatch()
+  const login = () => {
+    if (email.current.value === "" || pwd.current.value === ""){
+      alert("아이디 혹은 비밀번호가 공란입니다.")
+      return
+    }
+    console.log(email.current.value, pwd.current.value)
+    dispatch(userActions.loginFB(email.current.value, pwd.current.value))
   }
   return (
     <React.Fragment>
@@ -21,15 +25,16 @@ const Login = (props) => {
 
         <Grid padding="16px 0px">
           <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요."
-            reff={id}
+            label="이메일"
+            placeholder="이메일을 입력해주세요."
+            reff={email}
           />
         </Grid>
 
         <Grid padding="16px 0px">
           <Input
             label="패스워드"
+            type="password"
             placeholder="패스워드 입력해주세요."
             reff={pwd}
           />
@@ -37,7 +42,7 @@ const Login = (props) => {
 
         <Button
           text="로그인하기"
-          _onClick={handle}
+          _onClick={login}
         ></Button>
       </Grid>
     </React.Fragment>

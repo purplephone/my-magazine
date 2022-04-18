@@ -1,19 +1,21 @@
 import React, { useRef } from "react";
 import { Grid, Text, Input, Button } from "../elements";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Signup = (props) => {
+  const dispatch = useDispatch();
   const nickname = useRef(null)
   const pwd = useRef(null)
   const pwd2 = useRef(null)
   const email = useRef(null)
-  const handleSignup = () => {
+  const signup = () => {
     // Email
     let regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     // password 8~16 영문 숫자
     let regPwd = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}/;
     // ID 6~20 영문 숫자 (영어로 시작해야할 껄? 껄? 껄?)
     let regNickname = /^[a-z]+[a-z0-9]{5,19}/g;
-
     if (!regEmail.test(email.current.value)) {
       alert("이메일 형식이 잘못되었습니다.")
       return
@@ -29,11 +31,11 @@ const Signup = (props) => {
       return
     }
 
-    if(pwd.current.value === pwd2.current.value){
+    if(pwd.current.value !== pwd2.current.value){
       alert("비밀번호가 일치하지 않습니다.")
       return
     }
-
+    dispatch(userActions.signupFB(email.current.value, pwd.current.value, nickname.current.value))
   }
   return (
     <React.Fragment>
@@ -76,7 +78,7 @@ const Signup = (props) => {
           />
         </Grid>
 
-        <Button _onClick={() =>handleSignup()}>회원가입하기</Button>
+        <Button _onClick={signup}>회원가입하기</Button>
       </Grid>
     </React.Fragment>
   );
