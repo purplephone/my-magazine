@@ -1,84 +1,74 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Text, Input, Button } from "../elements";
-import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { emailCheck } from "../shared/common";
 
-const Signup = (props) => {
+const Signup = ({ history }) => {
   const dispatch = useDispatch();
-  const nickname = useRef(null)
-  const pwd = useRef(null)
-  const pwd2 = useRef(null)
-  const email = useRef(null)
+  const isLogin = useSelector((state) => state.user.isLogin);
+
+  const pwd = useRef("");
+  const pwdCheck = useRef("");
+  const userName = useRef("");
+
+  useEffect(() => {
+    if (isLogin) {
+      alert("이미 로그인이 되어있습니다!");
+      history.replace("/");
+    }
+  }, [history, isLogin]);
+
   const signup = () => {
-    // Email
-    let regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    // password 8~16 영문 숫자
-    let regPwd = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}/;
-    // ID 6~20 영문 숫자 (영어로 시작해야할 껄? 껄? 껄?)
-    let regNickname = /^[a-z]+[a-z0-9]{5,19}/g;
-    if (!regEmail.test(email.current.value)) {
-      alert("이메일 형식이 잘못되었습니다.")
-      return
+    const PWD = pwd.current.value;
+    const PWDCHECK = pwdCheck.current.value;
+    const USERNAME = userName.current.value;
+
+    if (!PWD && !USERNAME) {
+      return;
     }
 
-    if (!regNickname.test(nickname.current.value)) {
-      alert("닉네임은 6~20자리의 영문과 숫자 조합입니다.")
-      return
+    if (PWD !== PWDCHECK) {
+      alert("비밀번호를 확인해주세요!");
+      return;
     }
+    dispatch(userActions.signupFB(USERNAME, PWD, PWDCHECK));
+  };
 
-    if (!regPwd.test(pwd.current.value)) {
-      alert("비밀번호는 9~16자리의 영문과 숫자 조합입니다.")
-      return
-    }
-
-    if(pwd.current.value !== pwd2.current.value){
-      alert("비밀번호가 일치하지 않습니다.")
-      return
-    }
-    dispatch(userActions.signupFB(email.current.value, pwd.current.value, nickname.current.value))
-  }
   return (
     <React.Fragment>
-      <Grid padding="16px">
+      <Grid height="calc(100vh - 46px)" bg="white" padding="16px">
         <Text size="32px" bold>
           회원가입
         </Text>
 
         <Grid padding="16px 0px">
           <Input
-            reff={email}
-            label="이메일"
-            placeholder="이메일을 입력해주세요."
-          />
-        </Grid>
-
-        <Grid padding="16px 0px">
-          <Input
-            reff={nickname}
             label="닉네임"
             placeholder="닉네임을 입력해주세요."
+            reff={userName}
           />
         </Grid>
 
-        <Grid padding="16px 0px">
+        <Grid>
           <Input
-            reff={pwd}
-            type="password"
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요."
+            type="password"
+            reff={pwd}
           />
         </Grid>
 
         <Grid padding="16px 0px">
           <Input
-            reff={pwd2}
-            type="password"
             label="비밀번호 확인"
             placeholder="비밀번호를 다시 입력해주세요."
+            type="password"
+            reff={pwdCheck}
           />
         </Grid>
 
-        <Button _onClick={signup}>회원가입하기</Button>
+        <Button text="회원가입하기" _onClick={signup}></Button>
       </Grid>
     </React.Fragment>
   );

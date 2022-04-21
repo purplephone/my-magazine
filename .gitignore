@@ -12,6 +12,7 @@
 /build
 
 /src/shared/firebase.js
+/package.json
 
 # misc
 .DS_Store

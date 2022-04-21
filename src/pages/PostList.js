@@ -1,29 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Post from "../components/Post";
+import { Button, Grid } from "../elements";
+// import { actionCreators as postActions } from "../redux/modules/post";
+// import InfinityScroll from "../shared/InfinityScroll";
 import Permit from "../shared/Permit";
-import { Button } from "../elements";
-import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
 
-const PostList = (props) =>{
-    const dispatch = useDispatch();
-    const post_list = useSelector((state) => state.post.list)
+const PostList = ({ history }) => {
+  const dispatch = useDispatch();
+  const postList = useSelector((state) => state.post.list);
+  const userInfo = useSelector((state) => state.user.user);
+  // const isLoading = useSelector((state) => state.post.isLoading);
+  // const paging = useSelector((state) => state.post.paging);
 
-    React.useEffect(() => {
-        if (post_list.length === 0){
-            dispatch(postActions.getPostFB())
-        }
-    }, [])
-    return(
-        <React.Fragment>
-            {post_list.map((li, i) => {
-                return <Post key={i} {...li}/>
-            })}
-        <Permit>
-          <Button is_float text="+" _onClick={() =>{props.history.push('/write')}}></Button>
-        </Permit>
-        </React.Fragment>
-    )
-}
+  // useEffect(() => {
+  //   if (postList.length < 2) {
+  //     dispatch(postActions.getPostFB());
+  //   }
+  // }, [dispatch, postList.length]);
 
-export default PostList
+  return (
+    <React.Fragment>
+      {/* <InfinityScroll
+        callNext={() => {
+          dispatch(postActions.getPostFB(paging.next));
+        }}
+        isNext={paging.next ? true : false}
+        loading={isLoading}
+      > */}
+        {postList.map((p, idx) => {
+          if (p.userId === userInfo?.uid) {
+            return (
+              <Grid
+                key={idx}
+              >
+                <Post
+                  {...p}
+                  idx={idx}
+                  isMe
+                />
+              </Grid>
+            );
+          } else {
+            return (
+              <Grid
+                key={idx}
+              >
+                <Post
+                  {...p}
+                  idx={idx}
+                />
+              </Grid>
+            );
+          }
+        })}
+      {/* </InfinityScroll> */}
+      {/* <Permit> */}
+        <Button
+          isFloat
+          text="+"
+          _onClick={() => {
+            history.push("/write");
+          }}
+        ></Button>
+      {/* </Permit> */}
+    </React.Fragment>
+  );
+};
+
+export default PostList;

@@ -1,32 +1,39 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Button } from "../elements";
+import React, { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
-const Upload = (props) => {
-    const dispatch = useDispatch()
-    const fileInput = React.useRef(null)
-    const is_uploading = useSelector(state => state.image.uploading);
-    const uploadFB = () => {
-        let image = fileInput.current.files[0]
-        dispatch(imageActions.uploadImageFB(image))
-    }
-    const selectFile = (e) => {
-        const reader =new FileReader();
-        const file = fileInput.current.files[0];
+const Upload = () => {
+  const fileInput = useRef("");
+  const dispatch = useDispatch();
+  const isUploading = useSelector((state) => state.image.uploading);
 
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            dispatch(imageActions.setPreview(reader.result))
-        }
-    }
+  const selectFile = () => {
+    const reader = new FileReader();
+    const file = fileInput.current.files[0];
 
-    return (
-        <React.Fragment>
-            <input type="file" onChange={selectFile} ref={fileInput} disabled={is_uploading}/>
-            <Button _onClick={uploadFB} text="업로드하기"></Button>
-        </React.Fragment>
-    )
-}
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      dispatch(imageActions.setPreview(reader.result));
+    };
+  };
+
+  // const uploadFB = () => {
+  //   let image = fileInput.current.files[0];
+  //   dispatch(imageActions.uploadImageFB(image));
+  // };
+
+  return (
+    <React.Fragment>
+      <input
+        type="file"
+        ref={fileInput}
+        disabled={isUploading}
+        onChange={selectFile}
+        style={{marginTop:"20px"}}
+      />
+      {/* <Button _onClick={uploadFB} text="업로드하기"></Button> */}
+    </React.Fragment>
+  );
+};
 
 export default Upload;

@@ -1,53 +1,69 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = (props) => {
-    const {text, _onClick, is_float} = props;
-    if (is_float) {
-      return(
-      <React.Fragment>
-        <FloatButton onClick={_onClick}>{text}</FloatButton>
-      </React.Fragment>)
-    }
+const Button = ({ text, _onClick, isFloat, margin, padding, width }) => {
+  if (isFloat) {
     return (
       <React.Fragment>
-        <ElButton onClick={_onClick}>{text}</ElButton>
+        <FloatButton onClick={_onClick}>{text}</FloatButton>
       </React.Fragment>
     );
-}
+  }
+
+  const styles = {
+    margin: margin,
+    width: width,
+    padding: padding,
+  };
+
+  return (
+    <React.Fragment>
+      <ElButton {...styles} onClick={_onClick}>
+        {text}
+      </ElButton>
+    </React.Fragment>
+  );
+};
 
 Button.defaultProps = {
-    text: "텍스트",
-    _onClick: () => {},
-    is_float : false
-}
+  text: "텍스트",
+  _onClick: () => {},
+  isFloat: false,
+  margin: false,
+  width: "100%",
+  padding: "10px 0",
+};
 
 const ElButton = styled.button`
-    width: 100%;
-    background-color: #212121;
-    color: #ffffff;
-    padding: 12px 0px;
-    box-sizing: border-box;
-    border: none;
+  width: ${(props) => props.width};
+  margin: ${(props) => props.margin};
+  background-color: #212121;
+  color: #ffffff;
+  padding: 10px 0px;
+  box-sizing: border-box;
+  border: 1px solid #434343;
+  cursor: pointer;
 `;
 
 const FloatButton = styled.button`
-width:50px;
-height : 50px;
-background-color: #212121;
-color: #ffffff;
-box-sizing: border-box;
-font-size: 36px;
-font-weight: 800;
-position: sticky;
-left:100%;
-bottom : 0%;
-text-align: center;
-display: flex;
-align-items: center;
-justify-content: center;
-border: none;
-border-radius: 50px;
-`
+  width: 60px;
+  height: 60px;
+  background-color: #212121;
+  color: white;
+  box-sizing: border-box;
+  font-size: 30px;
+  font-weight: 800;
+  position: sticky;
+  bottom: 0%;
+  left: 100%;
+  border: none;
+  text-align: center;
+  border-radius: 30px;
+  cursor: pointer;
+
+  @media screen and (min-width: 480px) {
+    right: 35%;
+  }
+`;
 
 export default Button;
