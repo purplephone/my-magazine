@@ -10,7 +10,7 @@ import { history } from "../redux/configureStore";
 // import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import PostWrite from "../pages/PostWrite";
 import Notification from "../pages/Notification";
