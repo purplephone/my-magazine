@@ -23,6 +23,7 @@ Text.defaultProps = {
 
 const P = styled.p`
   box-sizing: border-box;
+  word-break: break-word;
   white-space:pre-line;
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};

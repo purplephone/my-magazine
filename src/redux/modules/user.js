@@ -1,10 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { setCookie, deleteCookie } from "../../shared/Cookie";
-import { auth } from "../../shared/firebase";
-import firebase from "firebase/app";
 import axios from "axios";
 import { urll } from "./test";
+import { actionCreators as postActions } from "./post";
 
 //token 
 // token = sessionStorage.getItem('token')
@@ -27,7 +25,7 @@ const setUser = createAction(SET_USER, (user) => ({ user }));
 // initialState
 const initialState = {
   user: {
-    userNickname:"asd",
+    nickname:"",
     userProfile:"",
     isAdmin:false
   },
@@ -46,13 +44,13 @@ const loginFB = (nickname, pwd, imageUrl="") => {
       }
     }).then(function (response){
       sessionStorage.setItem('token', response.data.token)
-      console.log("login data : ", response.data)
       const user_info = {
         nickname: response.data.nickname,
         isAdmin : response.data.isAdmin,
         userProfile:imageUrl
       }
       dispatch(setUser(user_info));
+      dispatch(postActions.getPostFB())
     }).catch((err) => {
       console.log(err)
     })
@@ -105,7 +103,8 @@ const logOutFB = () => {
   return function (dispatch, getState, { history }) {
     sessionStorage.removeItem('token')
     dispatch(logOut());
-    history.replace("/login");
+    dispatch(postActions.getPostFB())
+    history.replace("/");
   }
 };
 

@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, Input, Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { emailCheck } from "../shared/common";
 
 const Login = ({ history }) => {
   const dispatch = useDispatch();

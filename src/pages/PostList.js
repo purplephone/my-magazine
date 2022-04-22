@@ -4,7 +4,6 @@ import Post from "../components/Post";
 import { Button, Grid } from "../elements";
 // import { actionCreators as postActions } from "../redux/modules/post";
 // import InfinityScroll from "../shared/InfinityScroll";
-import Permit from "../shared/Permit";
 
 const PostList = ({ history }) => {
   const dispatch = useDispatch();

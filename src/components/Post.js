@@ -1,20 +1,21 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Grid, Image, Text } from "../elements";
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as likeActions } from "../redux/modules/like";
+import { actionCreators as commentActions } from "../redux/modules/comment";
+// import { actionCreators as likeActions } from "../redux/modules/like";
 import Like from "./Like";
 import PostLayout from "./PostLayout";
 
 const Post = ({
   userId,
-  userNickname,
+  nickname,
   postId,
   title,
   content,
-  created,
-  updated,
+  createdAt,
+  updatedAt,
   imageUrl,
   likeCnt,
   isLike,
@@ -22,6 +23,7 @@ const Post = ({
   layout,
   idx
   }) => {
+  const userNickname = useSelector((state) => state.user.user ? state.user.user.nickname: null)
   const dispatch = useDispatch();
 
   const deletePost = () => {
@@ -31,7 +33,7 @@ const Post = ({
     }
   };
 
-  // useEffect(() => {
+  // React.useEffect(() => {
   //   dispatch(likeActions.getLikeFB(postId));
   // }, [dispatch, postId]);
 
@@ -41,28 +43,30 @@ const Post = ({
         <Grid isFlex>
           <Grid padding="8px" isFlex width="none" >
             <Image shape="circle" src={imageUrl} />
-            <Text bold>{userNickname}<br/>{created}</Text>
+            <Text bold>{nickname}<br/>{createdAt}</Text>
           </Grid>
           <Grid margin="0 10px 0 120px" width="none" >
               <React.Fragment>
-                <Button
+                {userNickname === nickname ? <Button
                   text="수정"
                   padding="4px"
                   _onClick={() => {
                     history.push(`/write/${postId}`);
                   }}
-                ></Button>
-                <Button
+                ></Button>: null}
+                {userNickname === nickname ? <Button
                   margin="5px 0 0 0"
                   padding="4px"
                   text="삭제"
                   _onClick={deletePost}
-                ></Button>
+                ></Button> : null}
               </React.Fragment>
           </Grid>
         </Grid>
         
-          <Grid _onClick={() => {history.push(`/post/${postId}`)}}>
+          <Grid _onClick={() => {
+            dispatch(commentActions.getOnePostFB(postId))
+            history.push(`/post/${postId}`)}}>
 
           <PostLayout layout={layout} preview={imageUrl} content={content} />
 
@@ -72,7 +76,7 @@ const Post = ({
               <Text bold>댓글 {commentCnt}개</Text>
               <Text bold>좋아요 {likeCnt}개</Text>
             </Grid>
-            <Like postId={postId} idx={idx} />
+            {userNickname === nickname ? null : <Like postId={postId} isLike={isLike} />}
           {/* <Image
             shape="none"
             src={
@@ -100,7 +104,7 @@ Post.defaultProps = {
   updated: "2022-04-15 14:15:25",
   imageUrl: "http ...",
   likeCnt: 20,
-  isLike: true,
+  isLike: false,
   commentCnt: 10,
   layout: "top"
 }

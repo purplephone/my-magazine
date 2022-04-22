@@ -3,6 +3,6 @@ export const isLogin = () => {
     if(token){
         return token
     } else {
-        return null
+        return false
     }
 }
