@@ -14,6 +14,8 @@
 /src/shared/firebase.js
 /package.json
 
+/src/redux/modules/test.js
+
 # misc
 .DS_Store
 .env.local
