@@ -24,6 +24,7 @@ const Post = ({
   idx
   }) => {
   const userNickname = useSelector((state) => state.user.user ? state.user.user.nickname: null)
+  const like = useSelector((state) => state.post.list? state.post.list[idx].isLike : false)
   const dispatch = useDispatch();
 
   const deletePost = () => {
@@ -76,7 +77,7 @@ const Post = ({
               <Text bold>댓글 {commentCnt}개</Text>
               <Text bold>좋아요 {likeCnt}개</Text>
             </Grid>
-            {userNickname === nickname ? null : <Like postId={postId} isLike={isLike} />}
+            {userNickname === nickname ? null : <Like postId={postId} isLike={like} idx={idx} />}
           {/* <Image
             shape="none"
             src={

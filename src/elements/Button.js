@@ -54,7 +54,7 @@ const FloatButton = styled.button`
   font-size: 30px;
   font-weight: 800;
   position: sticky;
-  bottom: 0%;
+  bottom: 5px;
   left: 100%;
   border: none;
   text-align: center;

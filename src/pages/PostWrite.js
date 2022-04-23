@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Text, Button, Image, Input } from "../elements";
+import { Grid, Text, Button, Input } from "../elements";
 import Upload from "../shared/Upload";
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
@@ -10,8 +10,6 @@ import PostLayout from "../components/PostLayout";
 
 const PostWrite = () => {
   const dispatch = useDispatch();
-  const contents = useRef("");
-  const isLogin = useSelector((state) => state.user.isLogin);
   const preview = useSelector((state) => state.image.preview);
   const postList = useSelector((store) => store.post.list);
   const { postId } = useParams();
@@ -115,7 +113,9 @@ const PostWrite = () => {
           <Text margin="0px" size="32px" bold>
             {isEdit ? "게시글 수정" : "게시글 작성"}
           </Text>
+
           <Upload />
+          
         </Grid>
 
         <PostLayout _onChange={handleContent} layout={layout} content={content} preview={preview}></PostLayout>

@@ -43,8 +43,8 @@ const Login = ({ history }) => {
 
         <Grid>
           <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요."
+            label="닉네임"
+            placeholder="닉네임을 입력해주세요."
             reff={id}
           />
         </Grid>

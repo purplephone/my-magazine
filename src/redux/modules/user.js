@@ -51,10 +51,10 @@ const loginFB = (nickname, pwd, imageUrl="") => {
       }
       dispatch(setUser(user_info));
       dispatch(postActions.getPostFB())
+      history.push("/");
     }).catch((err) => {
       console.log(err)
     })
-    history.replace("/");
   };
 };
 
@@ -70,11 +70,10 @@ const signupFB = (nickname, pwd, pwd2) => {
         confirmPassword : pwd2,
       }
     }).then(function (response){
-      console.log("response data : " , response.data)
+      history.push("/");
     }).catch((err) => {
       console.log(err)
     })
-    history.push("/");
   }
 };
 

@@ -9,14 +9,20 @@ const SET_COMMENT = "SET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 const LOADING = "LOADING";
+const UPDATE_COMMENT = "UPDATE_COMMENT"
 
+const updateComment = createAction(UPDATE_COMMENT, (commentId, comment) => ({
+  commentId,
+  comment
+}))
 const deleteComment = createAction(DELETE_COMMENT, ( commentId) => ({ commentId}))
 const setComment = createAction(SET_COMMENT, (post,comments, commentCnt) => ({
   post,
   comments,
   commentCnt
 }));
-const addComment = createAction(ADD_COMMENT, (comment) => ({
+const addComment = createAction(ADD_COMMENT, (postId,comment) => ({
+  postId,
   comment,
 }));
 
@@ -28,6 +34,35 @@ const initialState = {
   isLoading: false,
   commentCnt : 0
 };
+
+const updateCommentFB = (postId, commentId, content="") => {
+  return function (dispatch,getState,{history}){
+    const token = isLogin()
+    const user = getState().user.user
+    axios({
+      method:'put',
+      url : `${urll}api/posts/${postId}/comments/${commentId}`,
+      data:{
+        content:content
+      },
+      headers:{
+        authorization : `Bearer ${token}`
+      }
+    }).then(function(response){
+      const comment = {
+        content,
+        commentId,
+        nickname:user.nickname,
+        imageUrl:user.userProfile,
+        createdAt : moment().format("YYYY-MM-DD HH:mm:ss"),
+        updatedAt : moment().format("YYYY-MM-DD HH:mm:ss"),
+      }
+      dispatch(updateComment(commentId,comment))
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+}
 
 const deleteCommentFB = (postId,commentId) => {
   return function (dispatch, getState, {history}) {
@@ -62,6 +97,7 @@ const addCommentFB = (postID, content) => {
     }).then(function (response){
       console.log(response.data)
       const comment = {
+        commentId : response.data.commentId,
         nickname : user.nickname,
         imageUrl : user.userProfile,
         content : content,
@@ -96,6 +132,7 @@ const getOnePostFB = (postId) => {
       })
     }
     else{
+      console.log("not login")
       axios({
         method:'get',
         url : `${urll}api/posts/${postId}`,
@@ -126,14 +163,18 @@ export default handleActions(
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.comments.unshift(action.payload.comment);
-        draft.comments.commentCnt += 1
       }),
 
     [DELETE_COMMENT]: (state, action) =>
     produce(state, (draft) => {
       draft.comments = state.comments.filter((c) => c.commentId !== action.payload.commentId)
-      console.log(typeof action.payload.commentId, action.payload.commentId)
-      console.log(draft.comments)
+    }),
+
+    [UPDATE_COMMENT]: (state, action) =>
+    produce(state, (draft) => {
+      const idx = state.comments.findIndex((c) => c.commentId === action.payload.commentId)
+      draft.comments[idx] = action.payload.comment
+      console.log(draft.comments[idx])
     }),
 
     [LOADING]: (state, action) =>
@@ -149,7 +190,8 @@ const actionCreators = {
   addCommentFB,
   setComment,
   addComment,
-  deleteCommentFB
+  deleteCommentFB,
+  updateCommentFB
 };
 
 export { actionCreators };

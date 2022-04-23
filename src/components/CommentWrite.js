@@ -3,19 +3,29 @@ import { Grid, Input, Button } from "../elements";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import { useDispatch } from "react-redux";
 
-const CommentWrite = ({ postID }) => {
+const CommentWrite = ({ postID, commentId, content, editFalse }) => {
   const dispatch = useDispatch();
   const commentText = useRef("");
 
   const write = () => {
     const COMMENTTEXT = commentText.current.value;
-    if (!COMMENTTEXT) {
-      alert("댓글 내용을 입력해주세요!");
-      return;
+    if (commentId){
+      editFalse()
+      dispatch(commentActions.updateCommentFB(postID,commentId,COMMENTTEXT))
     }
-    dispatch(commentActions.addCommentFB(postID, COMMENTTEXT));
-    commentText.current.value = "";
+    else {
+      if (!COMMENTTEXT) {
+        alert("댓글 내용을 입력해주세요!");
+        return;
+      }
+      dispatch(commentActions.addCommentFB(postID, COMMENTTEXT));
+      commentText.current.value = "";
+    }
   };
+
+  React.useEffect(() => {
+    commentText.current.value = content
+  })
 
   return (
     <React.Fragment>
@@ -36,4 +46,10 @@ const CommentWrite = ({ postID }) => {
   );
 };
 
+CommentWrite.defaultProps = {
+  postID : null,
+  contentId : null,
+  content:"",
+  editFalse:() => {}
+}
 export default CommentWrite;

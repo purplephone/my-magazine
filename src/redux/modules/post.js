@@ -215,7 +215,6 @@ const getPostFB = () => {
           }
         }).then(function (response){
           dispatch(setPost(response.data.posts));
-          console.log(response.data.posts)
         }).catch((err) => {
           console.log(err)
         })
@@ -228,7 +227,6 @@ const getPostFB = () => {
           },
         }).then(function (response){
           dispatch(setPost(response.data.posts));
-          console.log(response.data.posts)
         }).catch((err) => {
           console.log(err)
         })
@@ -254,8 +252,6 @@ const postLikeFB = (postId, i) => {
           likeCnt : _post[_idx].likeCnt + parseInt(i),
           isLike : !_post[_idx].isLike
         }
-        console.log(_post[_idx])
-        console.log(post)
         dispatch(postLike(post, _idx))
       }).catch((err)=>{
         console.log(err)
@@ -276,7 +272,6 @@ const postLikeFB = (postId, i) => {
           likeCnt : _post[_idx].likeCnt + parseInt(i),
           isLike : !_post[_idx].isLike
         }
-        console.log(post)
         dispatch(postLike(post, _idx))
       }).catch((err) =>{
         console.log(err)

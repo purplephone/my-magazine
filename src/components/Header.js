@@ -21,12 +21,10 @@ const Header = () => {
               _onClick={() => history.push("/")}
             ></Button>
           </Grid>
-          <Grid isFlex width="none">
-            <NotiBadge
-              _onClick={() => {
-                history.push("/noti");
-              }}
-            />
+          <div style={{width:"100%", textAlign:"center", marginLeft:"10px"}}>
+            <NotiBadge/>
+          </div>
+          <Grid>
             <Button
               width="130px"
               text="로그아웃"
@@ -43,7 +41,7 @@ const Header = () => {
 
   return (
     <React.Fragment>
-      <Grid isFlex>
+      <Grid isFlex position>
         <Button
           text="로그인"
           _onClick={() => {

@@ -13,7 +13,6 @@ const PostDetail = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const post = useSelector((state) => state.comment.post)
-  const commentCnt = useSelector((state) => state.comment.commentCnt)
   const login = isLogin()
   React.useEffect(() => {
     if(!post){
@@ -39,12 +38,11 @@ const PostDetail = () => {
           </Grid>
         <Grid isFlex padding="8px" height="80px">
           <Grid>
-            <Text bold>댓글 {commentCnt? commentCnt:0}개</Text>
             <Text bold>좋아요 {post.likeCnt}개</Text>
           </Grid>
-          {login ?null: <Like postId={post.postId} />}
+          {login ? null: <Like postId={post.postId} />}
         </Grid>
-        {login && <CommentWrite postID={post.postId}/>}
+        {login ? <CommentWrite postID={post.postId}/> : null}
         <Grid>
           <CommentList postID={post.postId}/>
         </Grid>

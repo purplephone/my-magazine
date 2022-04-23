@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import {  useSelector } from "react-redux";
 import Post from "../components/Post";
 import { Button, Grid } from "../elements";
 // import { actionCreators as postActions } from "../redux/modules/post";
 // import InfinityScroll from "../shared/InfinityScroll";
 
 const PostList = ({ history }) => {
-  const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.list);
   const userInfo = useSelector((state) => state.user.user);
   // const isLoading = useSelector((state) => state.post.isLoading);
   // const paging = useSelector((state) => state.post.paging);
-
-  // useEffect(() => {
-  //   if (postList.length < 2) {
-  //     dispatch(postActions.getPostFB());
-  //   }
-  // }, [dispatch, postList.length]);
 
   return (
     <React.Fragment>

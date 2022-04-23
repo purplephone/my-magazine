@@ -7,14 +7,18 @@ import { history } from "../redux/configureStore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { IconButton } from "@material-ui/core";
 
-const Like = ({ postId, isLike }) => {
+const Like = ({ postId, isLike, idx }) => {
   // post, user id 알기위해 useState로 가져오기
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
-  // const likeList = useSelector((state) => state.like.list);
+  // const Like = useSelector((state) => state.post.list? state.post.list[idx].isLike : false)
 
   // 체크 안한 상태
-  const [checkLike, setCheckLike] = useState(isLike? true: false);
+  const [checkLike, setCheckLike] = useState(null);
+  
+  useEffect(() => {
+    setCheckLike(isLike ? true :false)
+  },[isLike])
 
   // 하트누르면 post안에 먹혀서 post detail 페이지로 갔다가 뒤로가기누르면
   // required로 감 ...  아니면 한 번 더 누르거나..
