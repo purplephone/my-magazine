@@ -5,9 +5,12 @@ const getCookie = (name) => {
   if (parts.length === 2) {
     return parts.pop().split(";").shift();
   }
+  else {
+    return false
+  }
 };
 
-const setCookie = (name, value, exp = 5) => {
+const setCookie = (name, value, exp = 365) => {
   let date = new Date();
 
   date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);

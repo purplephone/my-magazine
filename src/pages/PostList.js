@@ -8,6 +8,7 @@ import { Button, Grid } from "../elements";
 const PostList = ({ history }) => {
   const postList = useSelector((state) => state.post.list);
   const userInfo = useSelector((state) => state.user.user);
+  const isLogin = useSelector((state) => state.user.isLogin)
   // const isLoading = useSelector((state) => state.post.isLoading);
   // const paging = useSelector((state) => state.post.paging);
 
@@ -47,7 +48,7 @@ const PostList = ({ history }) => {
           }
         })}
       {/* </InfinityScroll> */}
-      {/* <Permit> */}
+      {isLogin &&
         <Button
           isFloat
           text="+"
@@ -55,7 +56,7 @@ const PostList = ({ history }) => {
             history.push("/write");
           }}
         ></Button>
-      {/* </Permit> */}
+      }
     </React.Fragment>
   );
 };

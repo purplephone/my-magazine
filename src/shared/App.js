@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import PostWrite from "../pages/PostWrite";
 import Notification from "../pages/Notification";
 import PostDetail from "../pages/PostDetail";
+import {getCookie} from "./Cookie"
 
 function App() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function App() {
 
   useEffect(() => {
     dispatch(postActions.getPostFB())
-    if (sessionStorage.getItem('token')){
+    if (getCookie('token')){
       dispatch(userActions.loginCheckFB())
     }
   })

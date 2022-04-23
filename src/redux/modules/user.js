@@ -3,6 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 import { urll } from "./test";
 import { actionCreators as postActions } from "./post";
+import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 
 //token 
 // token = sessionStorage.getItem('token')
@@ -43,7 +44,7 @@ const loginFB = (nickname, pwd, imageUrl="") => {
         password:pwd
       }
     }).then(function (response){
-      sessionStorage.setItem('token', response.data.token)
+      setCookie('token', response.data.token)
       const user_info = {
         nickname: response.data.nickname,
         isAdmin : response.data.isAdmin,
@@ -79,7 +80,7 @@ const signupFB = (nickname, pwd, pwd2) => {
 
 const loginCheckFB = () => {
   return function (dispatch, getState, { histroy }) {
-    const token = sessionStorage.getItem('token')
+    const token = getCookie('token')
     axios({
       method:'get',
       url : `${urll}api/users/auth`,
@@ -100,7 +101,7 @@ const loginCheckFB = () => {
 
 const logOutFB = () => {
   return function (dispatch, getState, { history }) {
-    sessionStorage.removeItem('token')
+    deleteCookie('token')
     dispatch(logOut());
     dispatch(postActions.getPostFB())
     history.replace("/");

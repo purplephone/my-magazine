@@ -6,6 +6,7 @@ import { actionCreators as imageActions } from "./image";
 import axios from 'axios';
 import { urll } from "./test";
 import { isLogin } from "../../shared/isLogin";
+import { getCookie } from "../../shared/Cookie";
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
@@ -96,7 +97,7 @@ const editPostFB = (postID = null, post = {}) => {
 
       return;
     } else {
-      const userID = getState().user.user.uid;
+      const userID = getState().user.user.nickname;
       const _upload = storage
         .ref(`images/${userID}_${new Date().getTime()}`)
         .putString(_image, "data_url");
@@ -146,7 +147,7 @@ const addPostFB = (contents = "", layout="top") => {
     };
 
     const _image = getState().image.preview;
-    const token = sessionStorage.getItem('token')
+    const token = getCookie('token')
     if(_image){
       const _upload = storage
         .ref(`images/${userInfo.userID}_${new Date().getTime()}`)

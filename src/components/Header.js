@@ -43,6 +43,11 @@ const Header = () => {
     <React.Fragment>
       <Grid isFlex position>
         <Button
+          // width="150px"
+          text="홈으로"
+          _onClick={() => history.push("/")}
+        ></Button>
+        <Button
           text="로그인"
           _onClick={() => {
             history.push("/login");
