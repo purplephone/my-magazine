@@ -16,19 +16,19 @@ const Header = () => {
         <Grid bg="#efefef" isFlex position>
           <Grid>
             <Button
-              width="150px"
+              // width="150px"
               text="홈으로"
               _onClick={() => history.push("/")}
             ></Button>
           </Grid>
-          <div style={{width:"100%", textAlign:"center", marginLeft:"10px"}}>
+          <div style={{width:"100%", textAlign:"center"}}>
             <NotiBadge/>
           </div>
           <Grid>
             <Button
-              width="150px"
+              // width="150px"
               text="로그아웃"
-              margin="0 0 0 10px"
+              margin="0 0 0 0"
               _onClick={() => {
                 dispatch(userActions.logOutFB());
               }}
