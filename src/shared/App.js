@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     dispatch(postActions.getPostFB())
-    if (getCookie('token')){
+    if (getCookie()){
       dispatch(userActions.loginCheckFB())
     }
   })

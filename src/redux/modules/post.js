@@ -147,7 +147,7 @@ const addPostFB = (contents = "", layout="top") => {
     };
 
     const _image = getState().image.preview;
-    const token = getCookie('token')
+    const token = getCookie()
     if(_image){
       const _upload = storage
         .ref(`images/${userInfo.userID}_${new Date().getTime()}`)

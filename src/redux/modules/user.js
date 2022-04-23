@@ -44,7 +44,7 @@ const loginFB = (nickname, pwd, imageUrl="") => {
         password:pwd
       }
     }).then(function (response){
-      setCookie('token', response.data.token)
+      setCookie( response.data.token)
       const user_info = {
         nickname: response.data.nickname,
         isAdmin : response.data.isAdmin,
@@ -80,7 +80,7 @@ const signupFB = (nickname, pwd, pwd2) => {
 
 const loginCheckFB = () => {
   return function (dispatch, getState, { histroy }) {
-    const token = getCookie('token')
+    const token = getCookie()
     axios({
       method:'get',
       url : `${urll}api/users/auth`,
@@ -101,7 +101,7 @@ const loginCheckFB = () => {
 
 const logOutFB = () => {
   return function (dispatch, getState, { history }) {
-    deleteCookie('token')
+    deleteCookie()
     dispatch(logOut());
     dispatch(postActions.getPostFB())
     history.replace("/");
@@ -118,7 +118,6 @@ export default handleActions(
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        // deleteCookie("isLogin");
         draft.user = null;
         draft.isLogin = false;
       }),
