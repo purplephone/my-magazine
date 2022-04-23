@@ -38,9 +38,8 @@ const PostDetail = () => {
           </Grid>
         <Grid isFlex padding="8px" height="80px">
           <Grid>
-            <Text bold>좋아요 {post.likeCnt}개</Text>
           </Grid>
-          {login ? null: <Like postId={post.postId} />}
+          <Like postId={post.postId} isLike={post.isLike} likeCnt={post.likeCnt}/>
         </Grid>
         {login ? <CommentWrite postID={post.postId}/> : null}
         <Grid>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import styled from "styled-components";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { useDispatch, useSelector } from "react-redux";
 import { Text } from "../elements";
@@ -7,7 +7,7 @@ import { history } from "../redux/configureStore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { IconButton } from "@material-ui/core";
 
-const Like = ({ postId, isLike, idx }) => {
+const Like = ({ postId, isLike, likeCnt}) => {
   // post, user id 알기위해 useState로 가져오기
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -42,11 +42,23 @@ const Like = ({ postId, isLike, idx }) => {
         aria-label="add to favorites"
         color={checkLike ? "secondary" : "default"}
         onClick={handleLike}
+        size="small"
       >
-        <FavoriteIcon fontSize="large" />
+        <FavoriteIcon fontSize="large" border="none" />
       </IconButton>
+      <P>
+        {likeCnt}
+      </P>
     </Text>
   );
 };
+
+const P = styled.p`
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: #f50057;
+`
 
 export default Like;

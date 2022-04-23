@@ -75,9 +75,8 @@ const Post = ({
           <Grid isFlex padding="8px" height="80px">
             <Grid>
               <Text bold>댓글 {commentCnt}개</Text>
-              <Text bold>좋아요 {likeCnt}개</Text>
             </Grid>
-            {userNickname === nickname ? null : <Like postId={postId} isLike={like} idx={idx} />}
+            <Like postId={postId} isLike={like} likeCnt={likeCnt} />
           {/* <Image
             shape="none"
             src={
