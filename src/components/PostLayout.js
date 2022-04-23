@@ -8,6 +8,8 @@ const PostLayout = ({layout,preview, content}) => {
 
             <Text
                 width="100%"
+                font="'Nanum Pen Script', cursive"
+                size="25px"
               >
                 {content}
               </Text>
@@ -30,6 +32,8 @@ const PostLayout = ({layout,preview, content}) => {
             />
             <Text
                 width="100%"
+                font="'Nanum Pen Script', cursive"
+                size="25px"
               >
                 {content}
               </Text>
@@ -49,6 +53,8 @@ const PostLayout = ({layout,preview, content}) => {
               />
               <Text
                 width="50%"
+                font="'Nanum Pen Script', cursive"
+                size="25px"
               >
                 {content}
               </Text>
@@ -64,6 +70,8 @@ const PostLayout = ({layout,preview, content}) => {
             <Grid isFlex>
               <Text
                 width="50%"
+                font="'Nanum Pen Script', cursive"
+                size="25px"
               >
                 {content}
               </Text>

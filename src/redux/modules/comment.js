@@ -95,7 +95,6 @@ const addCommentFB = (postID, content) => {
         authorization: `Bearer ${token}`
       }
     }).then(function (response){
-      console.log(response.data)
       const comment = {
         commentId : response.data.commentId,
         nickname : user.nickname,
@@ -174,7 +173,6 @@ export default handleActions(
     produce(state, (draft) => {
       const idx = state.comments.findIndex((c) => c.commentId === action.payload.commentId)
       draft.comments[idx] = action.payload.comment
-      console.log(draft.comments[idx])
     }),
 
     [LOADING]: (state, action) =>

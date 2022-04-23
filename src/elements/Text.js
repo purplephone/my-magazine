@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-const Text = ({ bold, color, size, margin, children, _onClick, width }) => {
+const Text = ({ bold, color, size, margin, children, _onClick, width, font }) => {
   // const { bold, color, size, children } = props;
 
-  const styles = { bold: bold, color: color, size: size, margin: margin , width:width };
+  const styles = { bold: bold, color: color, size: size, margin: margin , width:width, font:font };
 
   return (
     <P {...styles} onClick={_onClick}>
@@ -25,6 +25,7 @@ const P = styled.p`
   box-sizing: border-box;
   word-break: break-word;
   white-space:pre-line;
+  font-family: ${(props) => props.font};
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? 600 : 400)};

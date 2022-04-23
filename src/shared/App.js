@@ -57,7 +57,7 @@ const AppWrap = styled.div`
   background-color: rgb(239, 246, 255);
   height: 100%;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
 
   @media screen and (min-width: 480px) {
     width: 50vw;

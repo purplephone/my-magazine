@@ -13,6 +13,7 @@ const PostDetail = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const post = useSelector((state) => state.comment.post)
+  const likeCnt = useSelector((state) => state.comment.post? state.comment.post.likeCnt : 0)
   const login = isLogin()
   React.useEffect(() => {
     if(!post){
@@ -39,7 +40,7 @@ const PostDetail = () => {
         <Grid isFlex padding="8px" height="80px">
           <Grid>
           </Grid>
-          <Like postId={post.postId} isLike={post.isLike} likeCnt={post.likeCnt}/>
+          <Like postId={post.postId} isLike={post.isLike} likeCnt={likeCnt}/>
         </Grid>
         {login ? <CommentWrite postID={post.postId}/> : null}
         <Grid>

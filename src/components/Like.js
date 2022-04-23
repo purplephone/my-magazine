@@ -53,7 +53,7 @@ const Like = ({ postId, isLike, likeCnt}) => {
   );
 };
 
-const P = styled.p`
+const P = styled.div`
   margin: 0;
   text-align: center;
   font-weight: 700;

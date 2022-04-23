@@ -16,7 +16,7 @@ const Header = () => {
         <Grid bg="#efefef" isFlex position>
           <Grid>
             <Button
-              width="130px"
+              width="150px"
               text="홈으로"
               _onClick={() => history.push("/")}
             ></Button>
@@ -26,7 +26,7 @@ const Header = () => {
           </div>
           <Grid>
             <Button
-              width="130px"
+              width="150px"
               text="로그아웃"
               margin="0 0 0 10px"
               _onClick={() => {

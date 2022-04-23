@@ -20,7 +20,6 @@ const uploadImageFB = (image) => {
   return function (dispatch, getState, { history }) {
     dispatch(uploading(true));
     const _upload = storage.ref(`images/${image.name}`).put(image);
-
     _upload.then((snapshot) => {
       console.log(snapshot);
 

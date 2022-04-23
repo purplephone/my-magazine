@@ -147,57 +147,93 @@ const addPostFB = (contents = "", layout="top") => {
 
     const _image = getState().image.preview;
     const token = sessionStorage.getItem('token')
-    const _upload = storage
-      .ref(`images/${userInfo.userID}_${new Date().getTime()}`)
-      .putString(_image, "data_url");
+    if(_image){
+      const _upload = storage
+        .ref(`images/${userInfo.userID}_${new Date().getTime()}`)
+        .putString(_image, "data_url");
 
-    _upload.then((snapshot) => {
-      snapshot.ref
-        .getDownloadURL()
-        .then((url) => {
-          return url;
-        })
-        .then((url) => {
-              url_save = url
-              axios({
-                method:'post',
-                url : `${urll}api/posts`,
-                data : {
-                  title : "title",
-                  content: contents,
-                  imageUrl : url,
-                  layout : layout
-                },
-                headers: {
-                  authorization : `Bearer ${token}`
-                }
-              }).then(function (response) {
-                // postId 필요
-                const post = {
-                  postId : response.data.postId,
-                  nickname: userInfo.userNickname,
-                  title: "testTitle",
-                  content: contents,
-                  createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
-                  updatedAt: moment().format("YYYY-MM-DD HH:mm:ss"),
-                  imageUrl : url_save,
-                  likeCnt: 0,
-                  isLike: false,
-                  commentCnt: 0,
-                  layout: layout
-                }
-                dispatch(addPost(post));
-                dispatch(imageActions.setPreview(null));
-                history.replace("/");
-              }).catch((err) => {
-                console.log(err)
-              })
-        })
-        .catch((error) => {
-          alert("IMAGE UPLOAD FAILED");
-          console.log("IMAGE UPLOAD FAILED!", error);
-        });
-    });
+      _upload.then((snapshot) => {
+        snapshot.ref
+          .getDownloadURL()
+          .then((url) => {
+            return url;
+          })
+          .then((url) => {
+                url_save = url
+                axios({
+                  method:'post',
+                  url : `${urll}api/posts`,
+                  data : {
+                    title : "title",
+                    content: contents,
+                    imageUrl : url,
+                    layout : layout
+                  },
+                  headers: {
+                    authorization : `Bearer ${token}`
+                  }
+                }).then(function (response) {
+                  // postId 필요
+                  const post = {
+                    postId : response.data.postId,
+                    nickname: userInfo.userNickname,
+                    title: "testTitle",
+                    content: contents,
+                    createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
+                    updatedAt: moment().format("YYYY-MM-DD HH:mm:ss"),
+                    imageUrl : url_save,
+                    likeCnt: 0,
+                    isLike: false,
+                    commentCnt: 0,
+                    layout: layout
+                  }
+                  dispatch(addPost(post));
+                  dispatch(imageActions.setPreview(null));
+                  history.replace("/");
+                }).catch((err) => {
+                  console.log(err)
+                })
+          })
+          .catch((error) => {
+            alert("IMAGE UPLOAD FAILED");
+            console.log("IMAGE UPLOAD FAILED!", error);
+          });
+      });
+    }else{
+      axios({
+        method:'post',
+        url : `${urll}api/posts`,
+        data : {
+          title : "title",
+          content: contents,
+          imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyeHVwO97TOo-qQcnf86iBseke2MLZUuCBnQ&usqp=CAU",
+          layout : layout
+        },
+        headers: {
+          authorization : `Bearer ${token}`
+        }
+      }).then(function (response) {
+        // postId 필요
+        const post = {
+          postId : response.data.postId,
+          nickname: userInfo.userNickname,
+          title: "testTitle",
+          content: contents,
+          createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
+          updatedAt: moment().format("YYYY-MM-DD HH:mm:ss"),
+          imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyeHVwO97TOo-qQcnf86iBseke2MLZUuCBnQ&usqp=CAU",
+          likeCnt: 0,
+          isLike: false,
+          commentCnt: 0,
+          layout: layout
+        }
+        dispatch(addPost(post));
+        dispatch(imageActions.setPreview(null));
+        history.replace("/");
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
   };
 };
 
@@ -284,7 +320,6 @@ export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.postList)
         draft.list = action.payload.postList;
       }),
 
