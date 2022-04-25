@@ -10,21 +10,22 @@ const ADD_COMMENT = "ADD_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 const LOADING = "LOADING";
 const UPDATE_COMMENT = "UPDATE_COMMENT"
+const LIKE = "LIKE"
 
 const updateComment = createAction(UPDATE_COMMENT, (commentId, comment) => ({
   commentId,
   comment
 }))
 const deleteComment = createAction(DELETE_COMMENT, ( commentId) => ({ commentId}))
-const setComment = createAction(SET_COMMENT, (post,comments, commentCnt) => ({
+const setComment = createAction(SET_COMMENT, (post,comments) => ({
   post,
   comments,
-  commentCnt
 }));
-const addComment = createAction(ADD_COMMENT, (postId,comment) => ({
-  postId,
+const addComment = createAction(ADD_COMMENT, (comment) => ({
   comment,
 }));
+
+
 
 // const loading = createAction(LOADING, (isLoading) => ({ isLoading }));
 
@@ -32,7 +33,6 @@ const initialState = {
   post: null,
   comments : [],
   isLoading: false,
-  commentCnt : 0
 };
 
 const updateCommentFB = (postId, commentId, content="") => {
@@ -103,7 +103,7 @@ const addCommentFB = (postID, content) => {
         createdAt : moment().format("YYYY-MM-DD HH:mm:ss"),
         updatedAt : moment().format("YYYY-MM-DD HH:mm:ss"),
       }
-      dispatch(addComment(postID, comment))
+      dispatch(addComment(comment))
     }).catch((err) =>{
       console.log(err)
     })
@@ -124,14 +124,13 @@ const getOnePostFB = (postId) => {
       }).then(function (response) {
         const post = response.data.post
         const comments = [...response.data.post.comments]
-        const commentCnt = comments.length
-        dispatch(setComment(post,comments,commentCnt))
+        // const commentCnt = comments.length
+        dispatch(setComment(post,comments))
       }).catch((err) => {
         console.log(err)
       })
     }
     else{
-      console.log("not login")
       axios({
         method:'get',
         url : `${urll}api/posts/${postId}`,
@@ -141,8 +140,8 @@ const getOnePostFB = (postId) => {
       }).then(function (response) {
         const post = response.data.post
         const comments = [...response.data.post.comments]
-        const commentCnt = comments.length
-        dispatch(setComment(post,comments,commentCnt))
+        // const commentCnt = comments.length
+        dispatch(setComment(post,comments))
       }).catch((err) => {
         console.log(err)
       })
@@ -155,7 +154,7 @@ export default handleActions(
     [SET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.post = action.payload.post;
-        draft.commentCnt = action.payload.commentCnt
+        // draft.commentCnt = action.payload.commentCnt;
         draft.comments = action.payload.comments;
       }),
 
@@ -166,7 +165,7 @@ export default handleActions(
 
     [DELETE_COMMENT]: (state, action) =>
     produce(state, (draft) => {
-      draft.comments = state.comments.filter((c) => c.commentId !== action.payload.commentId)
+      draft.comments = draft.comments.filter((c) => c.commentId !== action.payload.commentId)
     }),
 
     [UPDATE_COMMENT]: (state, action) =>
@@ -189,7 +188,7 @@ const actionCreators = {
   setComment,
   addComment,
   deleteCommentFB,
-  updateCommentFB
+  updateCommentFB,
 };
 
 export { actionCreators };

@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import { Grid, Input, Button } from "../elements";
 import { actionCreators as commentActions } from "../redux/modules/comment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 const CommentWrite = ({ postID, commentId, content, editFalse }) => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const CommentWrite = ({ postID, commentId, content, editFalse }) => {
         <Input
           placeholder="댓글 내용을 입력해주세요 :)"
           reff={commentText}
-          onSubmit={write}
+          _onSubmit={write}
         />
         <Button
           text="작성"
@@ -50,6 +51,5 @@ CommentWrite.defaultProps = {
   postID : null,
   contentId : null,
   content:"",
-  editFalse:() => {}
 }
 export default CommentWrite;

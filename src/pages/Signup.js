@@ -23,12 +23,23 @@ const Signup = ({ history }) => {
     const PWDCHECK = pwdCheck.current.value;
     const USERNAME = userName.current.value;
 
+    const userIdRegex = /^[A-Za-z0-9]{3,}$/
+    const userPwdRegex = /^[A-Za-z0-9]{3,}$/
+
     if (!PWD && !USERNAME) {
       return;
     }
 
+    if (!userIdRegex.test(USERNAME)){
+      alert("닉네임은 3자 이상의 알파벳 소문자 대문자 숫자의 조합입니다.")
+    }
+
+    if (!userPwdRegex.test(PWD)){
+      alert("비밀번호는 4자 이상의 알파벳 소문자 대문자 숫자의 조합입니다.")
+    }
+
     if (PWD !== PWDCHECK) {
-      alert("비밀번호를 확인해주세요!");
+      alert("비밀번호가 불일치합니다!");
       return;
     }
     dispatch(userActions.signupFB(USERNAME, PWD, PWDCHECK));

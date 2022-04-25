@@ -21,6 +21,7 @@ const PostDetail = () => {
     }
   })
 
+
   if(post){
     return (
       <React.Fragment>

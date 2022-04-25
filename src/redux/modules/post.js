@@ -7,6 +7,7 @@ import axios from 'axios';
 import { urll } from "./test";
 import { isLogin } from "../../shared/isLogin";
 import { getCookie } from "../../shared/Cookie";
+import { ActionTypes } from "@mui/base";
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
@@ -14,6 +15,7 @@ const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
 const LIKE = "LIKE";
+const ADD_COMMENT = "ADD_COMMENT"
 
 const setPost = createAction(SET_POST, (postList) => ({
   postList,
@@ -25,6 +27,10 @@ const editPost = createAction(EDIT_POST, (postID, post) => ({
 }));
 const deletePost = createAction(DELETE_POST, (postID) => ({ postID }));
 const postLike = createAction(LIKE, (post, idx) =>({post, idx}))
+const addComment = createAction(ADD_COMMENT, (postID,Cnt) => ({
+  postID,
+  Cnt
+}))
 
 const initialState = {
   list: [],
@@ -252,6 +258,7 @@ const getPostFB = () => {
           }
         }).then(function (response){
           dispatch(setPost(response.data.posts));
+          console.log(response.data.posts)
         }).catch((err) => {
           console.log(err)
         })
@@ -264,6 +271,7 @@ const getPostFB = () => {
           },
         }).then(function (response){
           dispatch(setPost(response.data.posts));
+          console.log(response.data.posts)
         }).catch((err) => {
           console.log(err)
         })
@@ -348,6 +356,12 @@ export default handleActions(
     produce(state, (draft) => {
       draft.list[action.payload.idx] = action.payload.post
     }),
+
+    [ADD_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        const idx = draft.list.findIndex((p)=> p.postId == action.payload.postID)
+        draft.list[idx] = {...draft.list[idx], commentCnt:action.payload.Cnt+1}
+      }),
   },
   initialState
 );
@@ -360,7 +374,8 @@ const actionCreators = {
   addPostFB,
   editPostFB,
   deleteFB,
-  postLikeFB
+  postLikeFB,
+  addComment
 };
 
 export { actionCreators };

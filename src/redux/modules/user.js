@@ -118,7 +118,7 @@ export default handleActions(
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        draft.user = null;
+        draft.user = initialState.user;
         draft.isLogin = false;
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),

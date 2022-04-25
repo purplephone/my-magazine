@@ -1,28 +1,24 @@
+import { Cookies } from "react-cookie";
+const cookies = new Cookies()
 const cookieName = "LongLifeCookie"
 
 const getCookie = () => {
-  let value = "; " + document.cookie;
-  let parts = value.split(`; ${cookieName}=`);
-
-  if (parts.length === 2) {
-    return parts.pop().split(";").shift();
-  }
-  else {
-    return false
-  }
+  return cookies.get(cookieName)
 };
 
 const setCookie = ( value, exp = 365) => {
-  let date = new Date();
-
-  date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
-  document.cookie = `${cookieName}=${value}; expires=${date.toUTCString()}`;
+  let expires = new Date();
+  expires.setDate(expires.getDate() + exp)
+  return cookies.set(cookieName, value, {
+    path:'/',
+    expires,
+  })
 };
 
 const deleteCookie = () => {
-  let date = new Date("2020-01-01").toUTCString();
-
-  document.cookie = cookieName + "=; expires=" + date;
+  return cookies.remove(cookieName, {
+    path: '/',
+  });
 };
 
 export { getCookie, setCookie, deleteCookie };

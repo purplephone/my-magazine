@@ -57,7 +57,7 @@ const CommentItem = ({
           <Text width="70px" bold>{nickname}</Text>
         </Grid>
         <Grid isFlex margin="0px 4px">
-          <Text margin="0px" width="180%">{content}</Text>
+          <Text margin="0px" width="270%">{content}</Text>
           <Grid isFlex>
             {nickname===user.nickname && 
             <Button 
@@ -89,7 +89,7 @@ const CommentItem = ({
 
 CommentItem.defaultProps = {
   userProfile: "",
-  userName: "mean0",
+  nickname: "",
   userID: "",
   postID: 1,
   contents: "귀여운 고양이네요!",
