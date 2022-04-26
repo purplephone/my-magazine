@@ -57,29 +57,6 @@ const PostWrite = () => {
     setLayout(lay)
   }
 
-  // if (!isLogin) {
-  //   return (
-  //     <Grid
-  //       bg="white"
-  //       height="calc(100vh - 46px)"
-  //       margin="100px 0"
-  //       padding="16px"
-  //       center
-  //     >
-  //       <Text size="32px" bold>
-  //         PLEASE WAIT!
-  //       </Text>
-  //       <Text size="16px">You can write after login!</Text>
-  //       <Button
-  //         text="로그인 하러가기"
-  //         _onClick={() => {
-  //           history.replace("/login");
-  //         }}
-  //       ></Button>
-  //     </Grid>
-  //   );
-  // }
-
   return (
     <React.Fragment>
       <Grid bg="white" height="100%" margin="20px 0">

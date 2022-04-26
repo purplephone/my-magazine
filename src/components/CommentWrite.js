@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
 import { Grid, Input, Button } from "../elements";
 import { actionCreators as commentActions } from "../redux/modules/comment";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as postActions } from "../redux/modules/post";
+import { useDispatch } from "react-redux";
 
 const CommentWrite = ({ postID, commentId, content, editFalse }) => {
   const dispatch = useDispatch();

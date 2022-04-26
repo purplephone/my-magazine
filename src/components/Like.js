@@ -11,10 +11,9 @@ const Like = ({ postId, isLike, likeCnt}) => {
   // post, user id 알기위해 useState로 가져오기
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
-  // const Like = useSelector((state) => state.post.list? state.post.list[idx].isLike : false)
 
   // 체크 안한 상태
-  const [checkLike, setCheckLike] = useState(null);
+  const [checkLike, setCheckLike] = useState(false);
   
   useEffect(() => {
     setCheckLike(isLike ? true :false)
@@ -46,14 +45,14 @@ const Like = ({ postId, isLike, likeCnt}) => {
       >
         <FavoriteIcon fontSize="large" border="none" />
       </IconButton>
-      <P>
+      <Pp>
         {likeCnt}
-      </P>
+      </Pp>
     </Text>
   );
 };
 
-const P = styled.div`
+const Pp = styled.p`
   margin: 0;
   text-align: center;
   font-weight: 700;

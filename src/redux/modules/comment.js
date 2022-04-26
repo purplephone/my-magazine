@@ -10,7 +10,6 @@ const ADD_COMMENT = "ADD_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 const LOADING = "LOADING";
 const UPDATE_COMMENT = "UPDATE_COMMENT"
-const LIKE = "LIKE"
 
 const updateComment = createAction(UPDATE_COMMENT, (commentId, comment) => ({
   commentId,

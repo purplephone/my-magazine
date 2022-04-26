@@ -3,6 +3,7 @@ import { Grid, Image, Text, Button } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import CommentWrite from "./CommentWrite";
+import { history } from "../redux/configureStore";
 
 
 const CommentList = ({postID}) => {
@@ -39,7 +40,10 @@ const CommentItem = ({
   const [edit, setEdit] = React.useState(false)
 
   const handleDelete = () => {
-    dispatch(commentActions.deleteCommentFB(postId, commentId))
+    if(window.confirm("정말 삭제하시겠습니까?")){
+      dispatch(commentActions.deleteCommentFB(postId, commentId))
+      history.replace(`/post/${postId}`)
+    }
   }
 
   const user = useSelector((state) => state.user.user)

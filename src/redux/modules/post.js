@@ -7,7 +7,6 @@ import axios from 'axios';
 import { urll } from "./test";
 import { isLogin } from "../../shared/isLogin";
 import { getCookie } from "../../shared/Cookie";
-import { ActionTypes } from "@mui/base";
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
@@ -258,7 +257,6 @@ const getPostFB = () => {
           }
         }).then(function (response){
           dispatch(setPost(response.data.posts));
-          console.log(response.data.posts)
         }).catch((err) => {
           console.log(err)
         })
@@ -271,7 +269,6 @@ const getPostFB = () => {
           },
         }).then(function (response){
           dispatch(setPost(response.data.posts));
-          console.log(response.data.posts)
         }).catch((err) => {
           console.log(err)
         })

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 import { history } from "../redux/configureStore";
 import NotiBadge from "./NotiBadge";
@@ -18,7 +19,9 @@ const Header = () => {
             <Button
               // width="150px"
               text="홈으로"
-              _onClick={() => history.push("/")}
+              _onClick={() => {
+                dispatch(postActions.getPostFB())
+                history.push("/")}}
             ></Button>
           </Grid>
           <div style={{width:"100%", textAlign:"center"}}>

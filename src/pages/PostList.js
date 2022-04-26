@@ -7,7 +7,6 @@ import { Button, Grid } from "../elements";
 
 const PostList = ({ history }) => {
   const postList = useSelector((state) => state.post.list);
-  const userInfo = useSelector((state) => state.user.user);
   const isLogin = useSelector((state) => state.user.isLogin);
   // const isLoading = useSelector((state) => state.post.isLoading);
   // const paging = useSelector((state) => state.post.paging);
@@ -22,30 +21,16 @@ const PostList = ({ history }) => {
         loading={isLoading}
       > */}
         {postList.map((p, idx) => {
-          if (p.userId === userInfo?.uid) {
-            return (
-              <Grid
-                key={idx}
-              >
-                <Post
-                  {...p}
-                  idx={idx}
-                  isMe
-                />
-              </Grid>
-            );
-          } else {
-            return (
-              <Grid
-                key={idx}
-              >
-                <Post
-                  {...p}
-                  idx={idx}
-                />
-              </Grid>
-            );
-          }
+          return (
+            <Grid
+              key={idx}
+            >
+              <Post
+                {...p}
+                idx={idx}
+              />
+            </Grid>
+          );
         })}
       {/* </InfinityScroll> */}
       {isLogin &&
